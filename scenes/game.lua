@@ -3,6 +3,7 @@ local gameGUI = suit.new()
 
 function scene.load()
     require "mines"
+    require "death"
     
     width, height = love.window.getMode()
     love.window.setMode(500, 700)
@@ -10,6 +11,7 @@ function scene.load()
 
     player = love.graphics.newImage('images/rocket.png')
     px = 215
+    py = height+15
 
     bg = love.graphics.newImage("images/bg.png")
     x = 0
@@ -36,6 +38,8 @@ function scene.load()
     music = love.audio.newSource('sound/bgSong.mp3', 'stream')
     music:seek('27', 'seconds')
     music:play()
+
+    test = false
 end
 
 function scene.update(dt)
@@ -76,6 +80,8 @@ function scene.update(dt)
         count = count + 1
         timer = 0
     end
+
+    -- Collisions
 end
 
 function scene.draw()
@@ -86,12 +92,23 @@ function scene.draw()
     genMine()
     drawMine()
 
-    love.graphics.draw(player, px, height+15, nil, 4)
+    love.graphics.draw(player, px, py, nil, 4)
+        
+    love.graphics.line(asx+10, asy+20, asx+asteroid:getWidth()*3.7, asy+20)
+    love.graphics.line(asx+10, asy+asteroid:getHeight()*3.7, asx+asteroid:getWidth()*3.7, asy+asteroid:getHeight()*3.7)
+    love.graphics.line(asx+10, asy+20, asx+10, asy+asteroid:getHeight()*3.7)
+    love.graphics.line(asx+asteroid:getWidth()*3.7, asy+20, asx+asteroid:getWidth()*3.7, asy+asteroid:getHeight()*3.7)
 
-    love.graphics.print(bgMultiplier, 0, 15)
-    love.graphics.print(asx)
+    love.graphics.line(px+15, py+5, px+player:getWidth()*2.8, py+5)
+    love.graphics.line(px+15, py+player:getHeight()*4, px+player:getWidth()*2.8, py+player:getHeight()*4)
+    love.graphics.line(px+15, py+5, px+15, py+player:getHeight()*4)
+    love.graphics.line(px+player:getWidth()*2.8, py+5, px+player:getWidth()*2.8, py+player:getHeight()*4)
 
     gameGUI:draw()
+
+    if test == true then
+        Death()
+    end
 end
 
 return scene
