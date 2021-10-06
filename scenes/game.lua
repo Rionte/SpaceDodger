@@ -7,7 +7,7 @@ function scene.load()
     require "hitboxes"
     
     width, height = love.window.getMode()
-    love.window.setMode(500, 700)
+    love.window.setMode(510, 700)
     love.window.setTitle("Space Dodger")
 
     player = love.graphics.newImage('images/rocket.png')
@@ -21,17 +21,8 @@ function scene.load()
     bgMultiplier = 1
 
     asteroid = love.graphics.newImage("images/asteroid.png")
-    -- 1st Pair of asteroids
-    asy = -100
-    as2y = -550
-    asx = love.math.random(-15, 500)
-    as2x = love.math.random(-15, 500)
-    as3x = love.math.random(-15, 500)
 
-    -- 2nd Pair of asteroids
-    as4x = love.math.random(-15, 500)
-    as5x = love.math.random(-15, 500)
-    as6x = love.math.random(-15, 500)
+    minesInit()
 
     timer = 0
     count = 1
@@ -81,6 +72,8 @@ function scene.update(dt)
         count = count + 1
         timer = 0
     end
+
+    minesUpdate()
 end
 
 function scene.draw()
@@ -88,14 +81,13 @@ function scene.draw()
     love.graphics.draw(bg, x, y-5)
     love.graphics.draw(bg, x, y2-505)
 
-    genMine()
-    drawMine()
+    minesDraw()
 
     love.graphics.draw(player, px, py, nil, 4)
 
     drawPlayerHitbox()
-    drawMineHitboxes()
-    checkAllCollisions()
+    -- drawMineHitboxes()
+    -- checkAllCollisions()
 
     gameGUI:draw()
 end

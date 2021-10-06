@@ -1,26 +1,27 @@
-function genMine()
-    asy = asy + (2+bgMultiplier)
-    as2y = as2y + (2+bgMultiplier)
-    if asy >= 700 then
-        asy = -100
-        asx = love.math.random(-15, 50)
-        as2x = love.math.random(150, 275)
-        as3x = love.math.random(425, 500)
-    end
-    if as2y >= 700 then
-        as2y = -100
-        as4x = love.math.random(-15, 150)
-        as5x = love.math.random(160, 275)
-        as6x = love.math.random(300, 450)
+function minesInit()
+    astSizeMultiplier = 2
+    astSize = asteroid:getWidth() * 4
+    aspos = {
+        { y=-100, x={ love.math.random(0-(astSize/2), 170-astSize), love.math.random(170, 340-astSize), love.math.random(340, 510-(astSize/2)) } },
+        { y=-550, x={ love.math.random(0-(astSize/2), 170-astSize), love.math.random(170, 340-astSize), love.math.random(340, 510-(astSize/2)) } }
+    }
+end
+    
+function minesUpdate()
+    for _,asy in ipairs(aspos) do
+        asy.y = asy.y + (2+bgMultiplier)
+        if asy.y >= 700 then
+            asy.y = -100
+            asy.x = { love.math.random(0-(astSize/2), 170-astSize), love.math.random(170, 340-astSize), love.math.random(340, 510-(astSize/2)) }
+        end
     end
 end
 
-function drawMine()
-    love.graphics.draw(asteroid, asx, asy, nil, 4)
-    love.graphics.draw(asteroid, as2x, asy, nil, 4)
-    love.graphics.draw(asteroid, as3x, asy, nil, 4)
-
-    love.graphics.draw(asteroid, as4x, as2y, nil, 4)
-    love.graphics.draw(asteroid, as5x, as2y, nil, 4)
-    love.graphics.draw(asteroid, as6x, as2y, nil, 4)
+function minesDraw()
+    for _,asy in ipairs(aspos) do
+        for _,asx in ipairs(asy.x) do
+            love.graphics.draw(asteroid, asx, asy.y, nil, astSizeMultiplier)
+            love.graphics.print(asx, asx+38, asy.y+48)
+        end
+    end
 end
