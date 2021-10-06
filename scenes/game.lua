@@ -4,6 +4,7 @@ local gameGUI = suit.new()
 function scene.load()
     require "mines"
     require "death"
+    require "hitboxes"
     
     width, height = love.window.getMode()
     love.window.setMode(500, 700)
@@ -80,8 +81,6 @@ function scene.update(dt)
         count = count + 1
         timer = 0
     end
-
-    -- Collisions
 end
 
 function scene.draw()
@@ -93,22 +92,12 @@ function scene.draw()
     drawMine()
 
     love.graphics.draw(player, px, py, nil, 4)
-        
-    love.graphics.line(asx+10, asy+20, asx+asteroid:getWidth()*3.7, asy+20)
-    love.graphics.line(asx+10, asy+asteroid:getHeight()*3.7, asx+asteroid:getWidth()*3.7, asy+asteroid:getHeight()*3.7)
-    love.graphics.line(asx+10, asy+20, asx+10, asy+asteroid:getHeight()*3.7)
-    love.graphics.line(asx+asteroid:getWidth()*3.7, asy+20, asx+asteroid:getWidth()*3.7, asy+asteroid:getHeight()*3.7)
 
-    love.graphics.line(px+15, py+5, px+player:getWidth()*2.8, py+5)
-    love.graphics.line(px+15, py+player:getHeight()*4, px+player:getWidth()*2.8, py+player:getHeight()*4)
-    love.graphics.line(px+15, py+5, px+15, py+player:getHeight()*4)
-    love.graphics.line(px+player:getWidth()*2.8, py+5, px+player:getWidth()*2.8, py+player:getHeight()*4)
+    drawPlayerHitbox()
+    drawMineHitboxes()
+    checkAllCollisions()
 
     gameGUI:draw()
-
-    if test == true then
-        Death()
-    end
 end
 
 return scene

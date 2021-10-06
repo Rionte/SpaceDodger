@@ -6,5 +6,5 @@ function CheckCollision(x1,y1,w1,h1, x2,y2,w2,h2)
   end
 
 function Death()
-    love.graphics.print("Dead", 0, 15)
+    love.graphics.print("Dead", px, py)
 end
