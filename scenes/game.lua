@@ -3,8 +3,6 @@ local gameGUI = suit.new()
 
 function scene.load()
     require "mines"
-    require "death"
-    require "hitboxes"
     
     width, height = love.window.getMode()
     love.window.setMode(510, 700)
@@ -12,7 +10,7 @@ function scene.load()
 
     player = love.graphics.newImage('images/rocket.png')
     px = 215
-    py = height+15
+    py = height-80
 
     bg = love.graphics.newImage("images/bg.png")
     x = 0
@@ -30,11 +28,10 @@ function scene.load()
     music = love.audio.newSource('sound/bgSong.mp3', 'stream')
     music:seek('27', 'seconds')
     music:play()
-
-    test = false
 end
 
 function scene.update(dt)
+
     -- Scroll Background --
     y = y + (bgMultiplier+2)
     y2 = y2 + (bgMultiplier+2)
@@ -69,8 +66,13 @@ function scene.update(dt)
     -- Timer
     timer = timer + 1
     if timer >= 60 then
-        count = count + 1
-        timer = 0
+        if count <= 10000 then
+            count = count + count/3
+            timer = 0
+        else
+            count = count + count/10
+            timer = 0
+        end
     end
 
     minesUpdate()
@@ -85,9 +87,8 @@ function scene.draw()
 
     love.graphics.draw(player, px, py, nil, 4)
 
-    drawPlayerHitbox()
-    -- drawMineHitboxes()
-    -- checkAllCollisions()
+    love.graphics.setNewFont(25)
+    love.graphics.print("SCORE: " .. math.floor(count), 0, 0)
 
     gameGUI:draw()
 end

@@ -3,7 +3,7 @@ SSM = require 'lib.ssm'
 
 function love.load()
     SSM.setPath('scenes/')
-    SSM.add('game')
+    SSM.add('title')
 end
 
 function love.update(dt)

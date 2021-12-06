@@ -38,30 +38,3 @@ function drawPlayerHitbox()
     love.graphics.line(px+15, py+5, px+15, py+player:getHeight()*4)
     love.graphics.line(px+player:getWidth()*2.8, py+5, px+player:getWidth()*2.8, py+player:getHeight()*4)
 end
-
-function checkAllCollisions()
-    
-    if CheckCollision(asx,asy,asteroid:getWidth(),asteroid:getHeight(), px,py,player:getWidth(),player:getHeight()) then
-        Death()
-    end
-    
-    if CheckCollision(as2x,asy,asteroid:getWidth(),asteroid:getHeight(), px,py,player:getWidth(),player:getHeight()) then
-        Death()
-    end
-    
-    if CheckCollision(as3x,asy,asteroid:getWidth(),asteroid:getHeight(), px,py,player:getWidth(),player:getHeight()) then
-        Death()
-    end
-    
-    if CheckCollision(as4x,as2y,asteroid:getWidth(),asteroid:getHeight(), px,py,player:getWidth(),player:getHeight()) then
-        Death()
-    end
-    
-    if CheckCollision(as5x,as2y,asteroid:getWidth(),asteroid:getHeight(), px,py,player:getWidth(),player:getHeight()) then
-        Death()
-    end
-    
-    if CheckCollision(as6x,as2y,asteroid:getWidth(),asteroid:getHeight(), px,py,player:getWidth(),player:getHeight()) then
-        Death()
-    end
-end
