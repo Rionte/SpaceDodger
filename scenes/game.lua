@@ -24,6 +24,7 @@ function scene.load()
 
     timer = 0
     count = 1
+    secondsTimer = 1
 
     music = love.audio.newSource('sound/bgSong.mp3', 'stream')
     music:seek('27', 'seconds')
@@ -66,6 +67,7 @@ function scene.update(dt)
     -- Timer
     timer = timer + 1
     if timer >= 60 then
+        secondsTimer = secondsTimer + 1
         if count <= 10000 then
             count = count + count/3
             timer = 0
@@ -89,6 +91,7 @@ function scene.draw()
 
     love.graphics.setNewFont(25)
     love.graphics.print("SCORE: " .. math.floor(count), 0, 0)
+    --love.graphics.print(secondsTimer, 0, 100)
 
     gameGUI:draw()
 end
