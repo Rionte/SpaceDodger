@@ -19,6 +19,11 @@ function minesUpdate()
         if asy.y >= 700 then
             asy.y = -100
             asy.x = { love.math.random(0-(astSize/2), 170-astSize), love.math.random(170, 340-astSize), love.math.random(340, 510-(astSize/2)) }
+            randNum = love.math.random(20)
+            if randNum == 20 then
+                SSM.purge("game")
+                SSM.add("title")
+            end
         end
         for _,asx in ipairs(asy.x) do
             if getDistance(asx+asteroid:getWidth(), asy.y+asteroid:getHeight(), px+player:getWidth()*2, py+player:getHeight()*2) < 45 then

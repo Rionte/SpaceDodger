@@ -3,6 +3,7 @@ local gameGUI = suit.new()
 
 function scene.load()
     require "mines"
+    require "powerups"
     
     width, height = love.window.getMode()
     love.window.setMode(510, 700)
@@ -19,6 +20,8 @@ function scene.load()
     bgMultiplier = 1
 
     asteroid = love.graphics.newImage("images/asteroid.png")
+
+    scoreMult = love.graphics.newImage("images/doublescore.png")
 
     minesInit()
 
@@ -91,6 +94,7 @@ function scene.draw()
 
     love.graphics.setNewFont(25)
     love.graphics.print("SCORE: " .. math.floor(count), 0, 0)
+    love.graphics.draw(scoreMult, 100, 100, 0, 0.5)
     --love.graphics.print(secondsTimer, 0, 100)
 
     gameGUI:draw()
