@@ -24,6 +24,7 @@ function scene.load()
     scoreMult = love.graphics.newImage("images/doublescore.png")
 
     minesInit()
+    powerupInit()
 
     timer = 0
     count = 1
@@ -81,6 +82,7 @@ function scene.update(dt)
     end
 
     minesUpdate()
+    updatePowerup()
 end
 
 function scene.draw()
@@ -96,6 +98,10 @@ function scene.draw()
     love.graphics.print("SCORE: " .. math.floor(count), 0, 0)
     love.graphics.draw(scoreMult, 100, 100, 0, 0.5)
     --love.graphics.print(secondsTimer, 0, 100)
+
+    if boolSpawn == true then
+        spawnPowerup()
+    end
 
     gameGUI:draw()
 end

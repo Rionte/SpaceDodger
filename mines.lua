@@ -1,3 +1,9 @@
+powerupLib = require "powerups"
+
+mineX = 0
+mineY = 0
+boolSpawn = false
+
 function getDistance(x1, y1, x2, y2)
 	local dx = x1-x2
 	local dy = y1-y2
@@ -19,10 +25,11 @@ function minesUpdate()
         if asy.y >= 700 then
             asy.y = -100
             asy.x = { love.math.random(0-(astSize/2), 170-astSize), love.math.random(170, 340-astSize), love.math.random(340, 510-(astSize/2)) }
-            randNum = love.math.random(20)
-            if randNum == 20 then
-                SSM.purge("game")
-                SSM.add("title")
+            randNum = love.math.random(2)
+            if randNum == 1 then
+                mineX = asy.x[love.math.random(3)]
+                mineY = asy.y
+                boolSpawn = true
             end
         end
         for _,asx in ipairs(asy.x) do
@@ -32,6 +39,10 @@ function minesUpdate()
             end
         end
     end
+end
+
+function getCurrentXY()
+    return mineX, mineY
 end
 
 function minesDraw()
