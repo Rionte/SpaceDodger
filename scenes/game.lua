@@ -21,8 +21,6 @@ function scene.load()
 
     asteroid = love.graphics.newImage("images/asteroid.png")
 
-    scoreMult = love.graphics.newImage("images/doublescore.png")
-
     minesInit()
     powerupInit()
 
@@ -82,7 +80,11 @@ function scene.update(dt)
     end
 
     minesUpdate()
-    updatePowerup()
+    if boolSpawn == true then
+        updatePowerup()
+    end
+
+    powerOnScreen()
 end
 
 function scene.draw()

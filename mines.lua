@@ -41,8 +41,12 @@ function minesUpdate()
     end
 end
 
-function getCurrentXY()
-    return mineX, mineY
+function getCurrentY()
+    return mineY
+end
+
+function getCurrentX()
+    return mineX
 end
 
 function minesDraw()
