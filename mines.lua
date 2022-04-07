@@ -3,6 +3,7 @@ powerupLib = require "powerups"
 mineX = 0
 mineY = 0
 boolSpawn = false
+randNumTest = 0
 
 function getDistance(x1, y1, x2, y2)
 	local dx = x1-x2
@@ -30,6 +31,7 @@ function minesUpdate()
                 mineX = asy.x[love.math.random(3)]
                 mineY = asy.y
                 boolSpawn = true
+                randNum = randNumTest
             end
         end
         for _,asx in ipairs(asy.x) do
@@ -55,4 +57,8 @@ function minesDraw()
             love.graphics.draw(asteroid, asx, asy.y, nil, astSizeMultiplier)
         end
     end
+end
+
+function getRandNum()
+    return randNumTest
 end

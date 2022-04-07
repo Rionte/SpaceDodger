@@ -25,8 +25,10 @@ function scene.load()
     powerupInit()
 
     timer = 0
-    count = 1
+    count = 0
     secondsTimer = 1
+    startTempCount = false
+    tempCount = 5
 
     music = love.audio.newSource('sound/bgSong.mp3', 'stream')
     music:seek('27', 'seconds')
@@ -69,14 +71,16 @@ function scene.update(dt)
     -- Timer
     timer = timer + 1
     if timer >= 60 then
-        secondsTimer = secondsTimer + 1
-        if count <= 10000 then
-            count = count + count/3
-            timer = 0
-        else
-            count = count + count/10
-            timer = 0
+        count = count + 1
+        if startTempCount == true then
+            if tempCount > 0 then
+                tempCount = tempCount - 1
+            end
+            if tempCount == 0 then
+                startTempCount = false
+            end
         end
+        timer = 0
     end
 
     minesUpdate()
@@ -103,7 +107,14 @@ function scene.draw()
 
     if boolSpawn == true then
         spawnPowerup()
+        boolSpawn = false
     end
+
+    if startTempCount == true then
+        love.graphics.print(tempCount, 485, 0)
+    end
+
+    showRandomNum()
 
     gameGUI:draw()
 end
