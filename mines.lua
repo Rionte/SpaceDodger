@@ -4,10 +4,12 @@ mineX = 0
 mineY = 0
 boolSpawn = false
 randNumTest = 0
+tempVar = 0
+spawnPosList = {100, 300}
 
 function getDistance(x1, y1, x2, y2)
 	local dx = x1-x2
-	local dy = y1-y2
+	local dy = y1-y2 
 	return math.sqrt((dx * dx + dy * dy))
 end
 
@@ -26,12 +28,18 @@ function minesUpdate()
         if asy.y >= 700 then
             asy.y = -100
             asy.x = { love.math.random(0-(astSize/2), 170-astSize), love.math.random(170, 340-astSize), love.math.random(340, 510-(astSize/2)) }
-            randNum = love.math.random(2)
+            randNum = love.math.random(1)
             if randNum == 1 then
-                mineX = asy.x[love.math.random(3)]
-                mineY = asy.y
-                boolSpawn = true
-                randNum = randNumTest
+                if powerOnScreen() == true then
+                    mineX = asy.x[love.math.random(3)]
+                    mineY = asy.y
+                    tempVar = spawnPosList[love.math.random(2)]
+                    boolSpawn = true
+                    randNum = randNumTest
+                end
+            end
+            if powerOnScreen() == true then
+                powerupType = love.math.random(1, 2)
             end
         end
         for _,asx in ipairs(asy.x) do
@@ -61,4 +69,8 @@ end
 
 function getRandNum()
     return randNumTest
+end
+
+function getPowerupType()
+    return powerupType
 end

@@ -28,7 +28,8 @@ function scene.load()
     count = 0
     secondsTimer = 1
     startTempCount = false
-    tempCount = 5
+    tempCount = 3
+    boolSpawn = false
 
     music = love.audio.newSource('sound/bgSong.mp3', 'stream')
     music:seek('27', 'seconds')
@@ -77,7 +78,11 @@ function scene.update(dt)
                 tempCount = tempCount - 1
             end
             if tempCount == 0 then
+                tempCount = 3
                 startTempCount = false
+            end
+            if startTempCount == true then
+                count = count + 2
             end
         end
         timer = 0
@@ -85,7 +90,9 @@ function scene.update(dt)
 
     minesUpdate()
     if boolSpawn == true then
-        updatePowerup()
+        if startTempCount == false then
+            updatePowerup()
+        end
     end
 
     powerOnScreen()
@@ -102,19 +109,21 @@ function scene.draw()
 
     love.graphics.setNewFont(25)
     love.graphics.print("SCORE: " .. math.floor(count), 0, 0)
-    love.graphics.draw(scoreMult, 100, 100, 0, 0.5)
     --love.graphics.print(secondsTimer, 0, 100)
 
-    if boolSpawn == true then
-        spawnPowerup()
-        boolSpawn = false
+    if boolSpawn == true then             -- THIS IS FIX TO POWERUP MOVING ON SREEN IDK
+        if startTempCount == false then
+            spawnPowerup()
+        end
     end
 
     if startTempCount == true then
-        love.graphics.print(tempCount, 485, 0)
-    end
+        love.graphics.print(tempCount, 475, 0)
+    end 
 
     showRandomNum()
+
+    love.graphics.print(tostring(powerOnScreenVar), 0, 500)
 
     gameGUI:draw()
 end
