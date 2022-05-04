@@ -13,7 +13,6 @@ end
 
 function powerOnScreen()
     if powerY >= love.graphics.getHeight() then
-        powerY = -100
         powerOnScreenVar = false
         startTempCount = true
         boolSpawn = false
@@ -25,10 +24,11 @@ function powerOnScreen()
 end
 
 function spawnPowerup()
-    love.graphics.draw(scoreMult, tempVar, powerY, nil, 0.7)
-    love.graphics.print(powerY, 0, 200)
-    love.graphics.print(tostring(boolSpawn), 0, 250)
-    love.graphics.print(powerupType, 0, 400)
+    if powerupType == 1 then
+        love.graphics.draw(scoreMult, tempVar, powerY, nil, 0.7)
+    elseif powerupType == 2 then
+        love.graphics.draw(shootAst, tempVar, powerY, nil, 0.7)
+    end
 end
 
 function showRandomNum()

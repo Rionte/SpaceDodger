@@ -30,15 +30,17 @@ function minesUpdate()
             asy.x = { love.math.random(0-(astSize/2), 170-astSize), love.math.random(170, 340-astSize), love.math.random(340, 510-(astSize/2)) }
             randNum = love.math.random(1)
             if randNum == 1 then
-                if powerOnScreen() == true then
-                    mineX = asy.x[love.math.random(3)]
-                    mineY = asy.y
-                    tempVar = spawnPosList[love.math.random(2)]
-                    boolSpawn = true
-                    randNum = randNumTest
-                end
+                mineX = asy.x[love.math.random(3)]
+                mineY = asy.y
+                boolSpawn = true
+                randNum = randNumTest
             end
-            if powerOnScreen() == true then
+
+            if powerOnScreen() == false then
+                tempVar = spawnPosList[love.math.random(2)]
+            end
+
+            if powerOnScreen() == false then
                 powerupType = love.math.random(1, 2)
             end
         end

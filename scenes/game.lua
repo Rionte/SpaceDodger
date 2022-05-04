@@ -80,6 +80,7 @@ function scene.update(dt)
             if tempCount == 0 then
                 tempCount = 3
                 startTempCount = false
+                powerY = -100
             end
             if startTempCount == true then
                 count = count + 2
@@ -109,11 +110,16 @@ function scene.draw()
 
     love.graphics.setNewFont(25)
     love.graphics.print("SCORE: " .. math.floor(count), 0, 0)
+    love.graphics.print(tostring(powerOnScreenVar), 0, 200)
+    love.graphics.print(powerupType, 0, 400)
+    love.graphics.print(tempVar, 0, 500)
     --love.graphics.print(secondsTimer, 0, 100)
 
     if boolSpawn == true then             -- THIS IS FIX TO POWERUP MOVING ON SREEN IDK
         if startTempCount == false then
-            spawnPowerup()
+            if powerOnScreen() == true then
+                spawnPowerup()
+            end
         end
     end
 
@@ -122,8 +128,6 @@ function scene.draw()
     end 
 
     showRandomNum()
-
-    love.graphics.print(tostring(powerOnScreenVar), 0, 500)
 
     gameGUI:draw()
 end
