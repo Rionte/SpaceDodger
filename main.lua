@@ -1,5 +1,6 @@
 suit = require 'lib.suit'
 SSM = require 'lib.ssm'
+cron = require 'lib.cron.cron'
 
 function love.load()
     SSM.setPath('scenes/')

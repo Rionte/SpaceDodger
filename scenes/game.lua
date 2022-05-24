@@ -5,8 +5,8 @@ function scene.load()
     require "mines"
     require "powerups"
     
-    width, height = love.window.getMode()
     love.window.setMode(510, 700)
+    width, height = love.window.getMode()
     love.window.setTitle("Space Dodger")
 
     player = love.graphics.newImage('images/rocket.png')
@@ -18,6 +18,7 @@ function scene.load()
     y = -5
     y2 = -5
     bgMultiplier = 1
+    scoreMultNum = 1
 
     asteroid = love.graphics.newImage("images/asteroid.png")
 
@@ -72,7 +73,7 @@ function scene.update(dt)
     -- Timer
     timer = timer + 1
     if timer >= 60 then
-        count = count + 1
+        count = count + (scoreMultNum)
         if startTempCount == true then
             if tempCount > 0 then
                 tempCount = tempCount - 1
@@ -90,13 +91,11 @@ function scene.update(dt)
     end
 
     minesUpdate()
-    if boolSpawn == true then
-        if startTempCount == false then
-            updatePowerup()
-        end
-    end
 
-    powerOnScreen()
+    if start == true then
+        updatePowerup()
+    end
+    updateTimer()
 end
 
 function scene.draw()
@@ -109,25 +108,20 @@ function scene.draw()
     love.graphics.draw(player, px, py, nil, 4)
 
     love.graphics.setNewFont(25)
+    if changeColorVar then
+        love.graphics.setColor(255, 255, 0)
+    end
     love.graphics.print("SCORE: " .. math.floor(count), 0, 0)
-    love.graphics.print(tostring(powerOnScreenVar), 0, 200)
-    love.graphics.print(powerupType, 0, 400)
-    love.graphics.print(tempVar, 0, 500)
-    --love.graphics.print(secondsTimer, 0, 100)
-
-    if boolSpawn == true then             -- THIS IS FIX TO POWERUP MOVING ON SREEN IDK
-        if startTempCount == false then
-            if powerOnScreen() == true then
-                spawnPowerup()
-            end
-        end
+    love.graphics.setColor(255, 255, 255)
+    love.graphics.print(extraMineX, 0, 100)
+    love.graphics.print(extraMineY, 0, 200)
+    if startPowerTimer == true then
+        love.graphics.print(powerTimer, 480, 0)
     end
 
-    if startTempCount == true then
-        love.graphics.print(tempCount, 475, 0)
-    end 
-
-    showRandomNum()
+    if start == true then
+        spawnPowerup()
+    end
 
     gameGUI:draw()
 end
