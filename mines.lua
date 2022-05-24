@@ -57,6 +57,7 @@ function minesUpdate()
             rand3shot = false
             rand4shot = false
             randNum = love.math.random(1)
+            astRandNum = love.math.random(1)
             if randNum == 1 and isOnTop() and powerTimer == 5 then
                 mineY = asy.y
                 start = true
@@ -72,15 +73,13 @@ function minesUpdate()
 end
 
 function getCurrentY()
-    return mineY
+    return mineY    
 end
 
 function minesDraw()
     for _,asy in ipairs(aspos2) do
         for _,asx in ipairs(asy.x) do
-            if notShot == false then
-                love.graphics.draw(asteroid, asx, asy.y, nil, astSizeMultiplier)
-            end
+            love.graphics.draw(asteroid, asx, asy.y, nil, astSizeMultiplier)
         end
     end
 end
