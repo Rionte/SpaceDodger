@@ -2,12 +2,13 @@ function powerupInit()
     powerY = getCurrentY()
     scoreMult = love.graphics.newImage("images/doublescore.png")
     shootAst = love.graphics.newImage("images/shoot.png")
-    powerupList = {shootAst, shootAst}
+    powerupList = {scoreMult, shootAst}
     start = false
     powerX = 0
     spawn = true
     changeColorVar = false
     canShoot = false
+    currentPower = 0
 
     powerTimer = 5
     powerClock = cron.every(60, function() 
@@ -19,10 +20,10 @@ end
 function updatePowerup()
     powerY = powerY + (2+bgMultiplier)
     if startPowerTimer == true then
-        if powerType == scoreMult then
+        if currentPower == scoreMult then
             scoreMultNum = 2
             changeColorVar = true
-        elseif powerType == shootAst then
+        elseif currentPower == shootAst then
             canShoot = true
         end
     else
@@ -30,11 +31,19 @@ function updatePowerup()
         changeColorVar = false
         canShoot = false
     end
-    if isBelow() and start == true then
+    if isBelow() and start == true and powerType == scoreMult then
         powerY = 0
         spawn = true
         start = false
         startPowerTimer = true
+        currentPower = scoreMult
+    end
+    if isBelow() and start == true and powerType == shootAst then
+        powerY = 0
+        spawn = true
+        start = false
+        startPowerTimer = true
+        currentPower = shootAst
     end
 end
 
