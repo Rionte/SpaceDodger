@@ -33,7 +33,7 @@ function minesInit()
     }
 end
 
-function love.keypressed(key)
+--[[function love.keypressed(key)
     if key == "space" and canShoot == true then
         if px > rand2 and px < rand2+asteroid:getWidth()*2 then
             lazerEffect = love.audio.newSource("sound/lazer.mp3", "stream")
@@ -41,7 +41,7 @@ function love.keypressed(key)
             rand2shot = true
         end
     end
-end
+end--]]
 
 function minesUpdate()
     for _,asy in ipairs(aspos2) do
@@ -58,7 +58,6 @@ function minesUpdate()
             rand3shot = false
             rand4shot = false
             randNum = love.math.random(1)
-            astRandNum = love.math.random(1)
             if randNum == 1 and isOnTop() and powerTimer == 5 then
                 mineY = asy.y
                 start = true

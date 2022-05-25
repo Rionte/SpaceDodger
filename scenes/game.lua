@@ -73,7 +73,7 @@ function scene.update(dt)
     -- Timer
     timer = timer + 1
     if timer >= 60 then
-        count = count + (scoreMultNum)
+        count = count + scoreMultNum
         if startTempCount == true then
             if tempCount > 0 then
                 tempCount = tempCount - 1
@@ -116,7 +116,6 @@ function scene.draw()
         love.graphics.print("SCORE: " .. math.floor(count), 0, 0)
     end
     love.graphics.setColor(255, 255, 255)
-    love.graphics.print(tostring(changeColorVar), 0, 100)
     if startPowerTimer == true then
         love.graphics.print(powerTimer, 480, 0)
     end

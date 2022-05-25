@@ -2,14 +2,14 @@ function powerupInit()
     powerY = getCurrentY()
     scoreMult = love.graphics.newImage("images/doublescore.png")
     shootAst = love.graphics.newImage("images/shoot.png")
-    powerupList = {scoreMult, shootAst}
+    powerupList = {scoreMult, scoreMult}
     start = false
-    powerX = 0
     spawn = true
     changeColorVar = false
     canShoot = false
     currentPower = 0
-
+    powerCollected = false
+    powerX = spawnPosList[love.math.random(1, 2)]
     powerTimer = 5
     powerClock = cron.every(60, function() 
         love.graphics.print(powerTimer, 450, 0)
@@ -19,13 +19,11 @@ end
 
 function updatePowerup()
     powerY = powerY + (2+bgMultiplier)
-    if startPowerTimer == true then
-        if currentPower == scoreMult then
-            scoreMultNum = 2
-            changeColorVar = true
-        elseif currentPower == shootAst then
-            canShoot = true
-        end
+    if startPowerTimer == true and currentPower == "scoreMult" then
+        scoreMultNum = 2
+        changeColorVar = true
+    elseif startPowerTimer == true and currentPower == "shootAst" then
+        canShoot = true
     else
         scoreMultNum = 1
         changeColorVar = false
@@ -36,14 +34,19 @@ function updatePowerup()
         spawn = true
         start = false
         startPowerTimer = true
-        currentPower = scoreMult
+        currentPower = "scoreMult"
+        powerCollected = true
     end
     if isBelow() and start == true and powerType == shootAst then
         powerY = 0
         spawn = true
         start = false
         startPowerTimer = true
-        currentPower = shootAst
+        currentPower = "shootAst"
+        powerCollected = true
+    end
+    if getDistance(powerX, powerY, px+player:getWidth()*2, py+player:getHeight()*2) < 55 then
+        powerY = 1000
     end
 end
 
@@ -52,6 +55,7 @@ function updateTimer()
         powerClock:update(1)
         if powerTimer == 0 then
             startPowerTimer = false
+            powerCollected = false
             powerTimer = 5
         end
     end
@@ -78,10 +82,15 @@ end
 
 function spawnPowerup()
     if spawn == true then
-        powerX = spawnPosList[love.math.random(1, 2)]
         powerType = powerupList[love.math.random(1, 2)]
+        if rand3 == 100 then
+            powerX = 300
+        elseif rand3 == 300 then
+            powerX = 100
+        end
     end
     spawn = false
+    
     love.graphics.draw(powerType, powerX, powerY, nil, 0.7)
 end
 
