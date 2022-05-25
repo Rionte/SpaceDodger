@@ -38,6 +38,7 @@ function love.keypressed(key)
         if px > rand2 and px < rand2+asteroid:getWidth()*2 then
             lazerEffect = love.audio.newSource("sound/lazer.mp3", "stream")
             lazerEffect:play()
+            rand2shot = true
         end
     end
 end
@@ -79,7 +80,9 @@ end
 function minesDraw()
     for _,asy in ipairs(aspos2) do
         for _,asx in ipairs(asy.x) do
-            love.graphics.draw(asteroid, asx, asy.y, nil, astSizeMultiplier)
+            if mineShot == false then
+                love.graphics.draw(asteroid, asx, asy.y, nil, astSizeMultiplier)
+            end
         end
     end
 end
